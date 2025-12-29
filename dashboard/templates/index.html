@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Scanner Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🛡️</span>
+                    <h1>Vulnerability Scanner</h1>
+                </div>
+                <p class="tagline">Detect CVEs in Python dependencies from Jupyter Notebooks</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            {% if not result %}
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <h2>Upload a File to Scan</h2>
+                        <p>Drop a .ipynb notebook, requirements.txt, or pyproject.toml</p>
+                        <input type="file" id="fileInput" accept=".ipynb,.txt,.toml" hidden>
+                        <button class="btn btn-primary" id="uploadBtn">Choose File</button>
+                    </div>
+                    <div class="upload-progress hidden" id="uploadProgress">
+                        <div class="spinner"></div>
+                        <p>Scanning for vulnerabilities...</p>
+                    </div>
+                </div>
+            </section>
+            {% else %}
+            <!-- Results Section -->
+            <section class="results-section">
+                <!-- Summary Cards -->
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-icon packages">📦</div>
+                        <div class="summary-content">
+                            <span class="summary-value">{{ result.total_packages }}</span>
+                            <span class="summary-label">Packages Scanned</span>
+                        </div>
+                    </div>
+                    <div class="summary-card {% if result.vulnerable_packages > 0 %}warning{% endif %}">
+                        <div class="summary-icon vulnerable">⚠️</div>
+                        <div class="summary-content">
+                            <span class="summary-value">{{ result.vulnerable_packages }}</span>
+                            <span class="summary-label">Vulnerable Packages</span>
+                        </div>
+                    </div>
+                    <div class="summary-card {% if result.critical_count > 0 %}critical{% endif %}">
+                        <div class="summary-icon critical">🔴</div>
+                        <div class="summary-content">
+                            <span class="summary-value">{{ result.critical_count }}</span>
+                            <span class="summary-label">Critical</span>
+                        </div>
+                    </div>
+                    <div class="summary-card {% if result.high_count > 0 %}high{% endif %}">
+                        <div class="summary-icon high">🟠</div>
+                        <div class="summary-content">
+                            <span class="summary-value">{{ result.high_count }}</span>
+                            <span class="summary-label">High Severity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Source Info -->
+                <div class="source-info">
+                    <span class="source-badge {{ result.source_type }}">{{ result.source_type|upper }}</span>
+                    <span class="source-path">{{ result.source }}</span>
+                    <span class="scan-time">Scanned: {{ result.scan_time }}</span>
+                </div>
+
+                <!-- Vulnerabilities List -->
+                {% set vulnerable_packages = [] %}
+                {% for name, pkg in result.packages.items() %}
+                    {% if pkg.has_vulnerabilities %}
+                        {% set _ = vulnerable_packages.append(pkg) %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if vulnerable_packages %}
+                <div class="vulnerabilities-section">
+                    <h2>🔍 Vulnerabilities Found</h2>
+                    
+                    {% for pkg in result.packages.values() %}
+                    {% if pkg.has_vulnerabilities %}
+                    <div class="package-card">
+                        <div class="package-header">
+                            <div class="package-name">
+                                <span class="pkg-icon">📦</span>
+                                <span>{{ pkg.package_name }}</span>
+                                <span class="version-badge">{{ pkg.version }}</span>
+                            </div>
+                            <div class="vuln-count">
+                                {{ pkg.vulnerabilities|length }} 
+                                {% if pkg.vulnerabilities|length == 1 %}vulnerability{% else %}vulnerabilities{% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="vulnerabilities-list">
+                            {% for vuln in pkg.vulnerabilities %}
+                            <div class="vulnerability-item severity-{{ vuln.severity.value|lower }}">
+                                <div class="vuln-header">
+                                    <span class="severity-badge {{ vuln.severity.value|lower }}">
+                                        {{ vuln.severity.value }}
+                                    </span>
+                                    <span class="vuln-id">{{ vuln.id }}</span>
+                                    {% if vuln.cve_id %}
+                                    <span class="cve-badge">{{ vuln.cve_id }}</span>
+                                    {% endif %}
+                                </div>
+                                <p class="vuln-summary">{{ vuln.summary }}</p>
+                                <div class="vuln-actions">
+                                    <a href="{{ vuln.osv_url }}" target="_blank" class="btn btn-small">
+                                        View on OSV →
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-vulns">
+                    <div class="success-icon">✅</div>
+                    <h2>No Vulnerabilities Found!</h2>
+                    <p>All scanned packages appear to be secure.</p>
+                </div>
+                {% endif %}
+
+                <!-- Unresolved Imports -->
+                {% if result.unresolved_imports %}
+                <div class="unresolved-section">
+                    <h3>⚪ Unresolved Imports</h3>
+                    <p>These imports couldn't be resolved to installed packages:</p>
+                    <div class="unresolved-list">
+                        {% for imp in result.unresolved_imports %}
+                        <span class="unresolved-badge">{{ imp }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Scan Again Button -->
+                <div class="actions">
+                    <a href="/" class="btn btn-primary">Scan Another File</a>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by <a href="https://osv.dev" target="_blank">OSV Database</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

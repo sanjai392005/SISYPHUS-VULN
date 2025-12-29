@@ -1,0 +1,5 @@
+requests>=2.25.0 # for querying osv
+flask>=2.0.0 # for dashboard 
+pytest>=7.0.0 # for tests
+pytest-cov>=4.0.0 # for tests
+

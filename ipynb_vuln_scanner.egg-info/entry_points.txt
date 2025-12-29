@@ -1,0 +1,2 @@
+[console_scripts]
+ipynb-vuln-scanner = src.main:main
