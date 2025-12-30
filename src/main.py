@@ -111,7 +111,7 @@ Examples:
 def print_results(result, verbose=False):
     """Print scan results to console."""
     print("\n" + "=" * 60)
-    print("VULNERABILITY SCAN RESULTS")
+    print("SISYPHUS-VULN SCAN RESULTS")
     print("=" * 60)
     
     print(f"\nSource: {result.source}")

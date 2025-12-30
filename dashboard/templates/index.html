@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vulnerability Scanner Dashboard</title>
+    <title>SISYPHUS-dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Header -->
@@ -14,9 +16,9 @@
             <div class="header-content">
                 <div class="logo">
                     <span class="logo-icon">🛡️</span>
-                    <h1>Vulnerability Scanner</h1>
+                    <h1>SISYPHUS</h1>
                 </div>
-                <p class="tagline">Detect CVEs in Python dependencies from Jupyter Notebooks</p>
+                <p class="tagline">Detects CVEs in Python dependencies from Jupyter Notebooks and Projects</p>
             </div>
         </header>
 
@@ -29,8 +31,8 @@
                     <div class="upload-area" id="uploadArea">
                         <div class="upload-icon">📁</div>
                         <h2>Upload a File to Scan</h2>
-                        <p>Drop a .ipynb notebook, requirements.txt, or pyproject.toml</p>
-                        <input type="file" id="fileInput" accept=".ipynb,.txt,.toml" hidden>
+                        <p>Upload a <strong>.ipynb</strong> notebook or a <strong>.zip</strong> of your project</p>
+                        <input type="file" id="fileInput" accept=".ipynb,.zip" hidden>
                         <button class="btn btn-primary" id="uploadBtn">Choose File</button>
                     </div>
                     <div class="upload-progress hidden" id="uploadProgress">
@@ -84,15 +86,15 @@
                 <!-- Vulnerabilities List -->
                 {% set vulnerable_packages = [] %}
                 {% for name, pkg in result.packages.items() %}
-                    {% if pkg.has_vulnerabilities %}
-                        {% set _ = vulnerable_packages.append(pkg) %}
-                    {% endif %}
+                {% if pkg.has_vulnerabilities %}
+                {% set _ = vulnerable_packages.append(pkg) %}
+                {% endif %}
                 {% endfor %}
 
                 {% if vulnerable_packages %}
                 <div class="vulnerabilities-section">
                     <h2>🔍 Vulnerabilities Found</h2>
-                    
+
                     {% for pkg in result.packages.values() %}
                     {% if pkg.has_vulnerabilities %}
                     <div class="package-card">
@@ -103,11 +105,12 @@
                                 <span class="version-badge">{{ pkg.version }}</span>
                             </div>
                             <div class="vuln-count">
-                                {{ pkg.vulnerabilities|length }} 
-                                {% if pkg.vulnerabilities|length == 1 %}vulnerability{% else %}vulnerabilities{% endif %}
+                                {{ pkg.vulnerabilities|length }}
+                                {% if pkg.vulnerabilities|length == 1 %}vulnerability{% else %}vulnerabilities{% endif
+                                %}
                             </div>
                         </div>
-                        
+
                         <div class="vulnerabilities-list">
                             {% for vuln in pkg.vulnerabilities %}
                             <div class="vulnerability-item severity-{{ vuln.severity.value|lower }}">
@@ -170,4 +173,5 @@
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+
 </html>

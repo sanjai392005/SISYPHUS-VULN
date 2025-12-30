@@ -117,7 +117,6 @@ Features: (Not fully functional yet)
 - Color-coded severity indicators
 - Direct links to OSV database entries
 
-
 ## Configuration
 
 ### Environment Variables

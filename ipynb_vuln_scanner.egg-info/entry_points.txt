@@ -1,2 +1,2 @@
 [console_scripts]
-ipynb-vuln-scanner = src.main:main
+sisyphus-vuln = src.main:main

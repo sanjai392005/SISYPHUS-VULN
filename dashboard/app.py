@@ -5,6 +5,9 @@ Web-based dashboard for viewing vulnerability scan results.
 """
 
 import os
+import shutil
+import zipfile
+import tempfile
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 
@@ -15,14 +18,14 @@ from src.scanner import VulnerabilityScanner, ScanResult
 
 
 UPLOAD_FOLDER = '/tmp/vuln-scanner-uploads'
-ALLOWED_EXTENSIONS = {'ipynb', 'txt', 'toml'}
+ALLOWED_EXTENSIONS = {'ipynb', 'zip'}
 
 
 def create_app():
     """Create and configure the Flask application."""
     app = Flask(__name__)
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
+    app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max for zip files
     app.secret_key = os.urandom(24)
     
     # Ensure upload folder exists
@@ -34,7 +37,6 @@ def create_app():
     @app.route('/')
     def index():
         """Main dashboard page."""
-        # Check if there's a pre-loaded result from CLI
         preloaded_result = app.config.get('SCAN_RESULT')
         return render_template('index.html', result=preloaded_result)
     
@@ -49,26 +51,33 @@ def create_app():
             return jsonify({'error': 'No file selected'}), 400
         
         if not allowed_file(file.filename):
-            return jsonify({'error': 'File type not allowed'}), 400
+            return jsonify({'error': 'File type not allowed. Use .ipynb or .zip'}), 400
         
-        # Save file
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         
-        # Scan file
         scanner = VulnerabilityScanner()
-        result = scanner.scan(filepath)
+        
+        try:
+            if filename.lower().endswith('.zip'):
+                # Handle zip file - extract and scan as project
+                result = handle_zip_upload(filepath, scanner)
+            else:
+                # Handle .ipynb directly
+                result = scanner.scan(filepath)
+        except Exception as e:
+            return jsonify({'error': f'Scan failed: {str(e)}'}), 500
+        finally:
+            # Clean up uploaded file
+            try:
+                os.remove(filepath)
+            except:
+                pass
         
         # Store result
         result_id = os.urandom(8).hex()
         app.config['SCAN_RESULTS'][result_id] = result
-        
-        # Clean up uploaded file
-        try:
-            os.remove(filepath)
-        except:
-            pass
         
         return jsonify({
             'success': True,
@@ -113,7 +122,51 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def handle_zip_upload(zip_path, scanner):
+    """
+    Extract zip file and scan the project inside.
+    
+    Args:
+        zip_path: Path to the uploaded zip file
+        scanner: VulnerabilityScanner instance
+        
+    Returns:
+        ScanResult from scanning the extracted project
+    """
+    # Create temp directory for extraction
+    extract_dir = tempfile.mkdtemp(prefix='vuln-scan-')
+    
+    try:
+        # Extract zip
+        with zipfile.ZipFile(zip_path, 'r') as zf:
+            zf.extractall(extract_dir)
+        
+        # Check if zip contains a single directory (common pattern)
+        contents = os.listdir(extract_dir)
+        if len(contents) == 1:
+            inner_path = os.path.join(extract_dir, contents[0])
+            if os.path.isdir(inner_path):
+                extract_dir = inner_path
+        
+        # Check if this is actually a notebook disguised as zip
+        ipynb_files = [f for f in os.listdir(extract_dir) if f.endswith('.ipynb')]
+        if len(ipynb_files) == 1 and len(os.listdir(extract_dir)) == 1:
+            # Single notebook in zip - scan as notebook
+            return scanner.scan(os.path.join(extract_dir, ipynb_files[0]))
+        
+        # Scan as project directory (uses Syft or fallback)
+        return scanner.scan_project(extract_dir)
+        
+    finally:
+        # Clean up extracted files
+        try:
+            shutil.rmtree(extract_dir, ignore_errors=True)
+        except:
+            pass
+
+
 # Development server
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True, host='0.0.0.0', port=5000)
+

@@ -3,7 +3,7 @@
  * Handles file upload and drag-and-drop functionality
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const uploadBtn = document.getElementById('uploadBtn');
@@ -12,36 +12,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!uploadArea || !fileInput) return;
 
     // Click to upload
-    uploadBtn.addEventListener('click', function(e) {
+    uploadBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         fileInput.click();
     });
 
-    uploadArea.addEventListener('click', function() {
+    uploadArea.addEventListener('click', function () {
         fileInput.click();
     });
 
     // File selection
-    fileInput.addEventListener('change', function() {
+    fileInput.addEventListener('change', function () {
         if (this.files.length > 0) {
             uploadFile(this.files[0]);
         }
     });
 
     // Drag and drop
-    uploadArea.addEventListener('dragover', function(e) {
+    uploadArea.addEventListener('dragover', function (e) {
         e.preventDefault();
         e.stopPropagation();
         this.classList.add('drag-over');
     });
 
-    uploadArea.addEventListener('dragleave', function(e) {
+    uploadArea.addEventListener('dragleave', function (e) {
         e.preventDefault();
         e.stopPropagation();
         this.classList.remove('drag-over');
     });
 
-    uploadArea.addEventListener('drop', function(e) {
+    uploadArea.addEventListener('drop', function (e) {
         e.preventDefault();
         e.stopPropagation();
         this.classList.remove('drag-over');
@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Upload file function
     function uploadFile(file) {
         // Validate file type
-        const allowedExtensions = ['ipynb', 'txt', 'toml'];
+        const allowedExtensions = ['ipynb', 'zip'];
         const extension = file.name.split('.').pop().toLowerCase();
-        
+
         if (!allowedExtensions.includes(extension)) {
-            showError('Please upload a .ipynb, requirements.txt, or pyproject.toml file');
+            showError('Please upload a .ipynb notebook or a .zip project file');
             return;
         }
 
@@ -76,20 +76,20 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = data.redirect;
-            } else {
-                showError(data.error || 'Upload failed');
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    showError(data.error || 'Upload failed');
+                    resetUpload();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('Upload failed. Please try again.');
                 resetUpload();
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showError('Upload failed. Please try again.');
-            resetUpload();
-        });
+            });
     }
 
     function showError(message) {
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Collapsible vulnerability details
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.classList.contains('vuln-toggle')) {
         const details = e.target.closest('.vulnerability-item').querySelector('.vuln-details');
         if (details) {
@@ -115,12 +115,12 @@ document.addEventListener('click', function(e) {
 });
 
 // Animate summary cards on load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const cards = document.querySelectorAll('.summary-card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
-        
+
         setTimeout(() => {
             card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             card.style.opacity = '1';
