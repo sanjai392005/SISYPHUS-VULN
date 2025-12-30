@@ -1,5 +1,5 @@
 /* ============================================
-   Vulnerability Scanner Dashboard Styles
+   Sisyphus-vuln Dashboard Styles
    ============================================ */
 
 /* CSS Variables */
@@ -9,14 +9,14 @@
     --bg-secondary: #161b22;
     --bg-tertiary: #21262d;
     --bg-glass: rgba(22, 27, 34, 0.8);
-    
+
     --text-primary: #f0f6fc;
     --text-secondary: #8b949e;
     --text-muted: #6e7681;
-    
+
     --accent-primary: #58a6ff;
     --accent-secondary: #1f6feb;
-    
+
     --severity-critical: #ff4757;
     --severity-critical-bg: rgba(255, 71, 87, 0.15);
     --severity-high: #ff6b35;
@@ -27,20 +27,20 @@
     --severity-low-bg: rgba(76, 209, 55, 0.15);
     --severity-unknown: #6e7681;
     --severity-unknown-bg: rgba(110, 118, 129, 0.15);
-    
+
     --success: #3fb950;
     --warning: #d29922;
-    
+
     --border-color: #30363d;
     --border-radius: 12px;
     --border-radius-sm: 6px;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
     --shadow-glow: 0 0 20px rgba(88, 166, 255, 0.3);
-    
+
     /* Transitions */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.25s ease;
@@ -48,7 +48,9 @@
 }
 
 /* Reset & Base */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -65,7 +67,7 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    background-image: 
+    background-image:
         radial-gradient(ellipse at top, rgba(88, 166, 255, 0.1) 0%, transparent 50%),
         radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
 }
@@ -161,8 +163,15 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .upload-area h2 {
@@ -243,7 +252,9 @@ body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Summary Grid */
@@ -328,9 +339,17 @@ body {
     color: white;
 }
 
-.source-badge.notebook { background: #8b5cf6; }
-.source-badge.project { background: #10b981; }
-.source-badge.requirements { background: #f59e0b; }
+.source-badge.notebook {
+    background: #8b5cf6;
+}
+
+.source-badge.project {
+    background: #10b981;
+}
+
+.source-badge.requirements {
+    background: #f59e0b;
+}
 
 .source-path {
     font-family: monospace;
@@ -454,11 +473,30 @@ body {
     text-transform: uppercase;
 }
 
-.severity-badge.critical { background: var(--severity-critical); color: white; }
-.severity-badge.high { background: var(--severity-high); color: white; }
-.severity-badge.medium { background: var(--severity-medium); color: #1a1a1a; }
-.severity-badge.low { background: var(--severity-low); color: white; }
-.severity-badge.unknown { background: var(--severity-unknown); color: white; }
+.severity-badge.critical {
+    background: var(--severity-critical);
+    color: white;
+}
+
+.severity-badge.high {
+    background: var(--severity-high);
+    color: white;
+}
+
+.severity-badge.medium {
+    background: var(--severity-medium);
+    color: #1a1a1a;
+}
+
+.severity-badge.low {
+    background: var(--severity-low);
+    color: white;
+}
+
+.severity-badge.unknown {
+    background: var(--severity-unknown);
+    color: white;
+}
 
 .vuln-id {
     font-family: monospace;
@@ -573,25 +611,25 @@ body {
     .header {
         padding: 1rem;
     }
-    
+
     .main-content {
         padding: 1rem;
     }
-    
+
     .upload-card {
         padding: 2rem 1.5rem;
     }
-    
+
     .summary-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .source-info {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
     }
-    
+
     .scan-time {
         margin-left: 0;
     }
