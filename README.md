@@ -1,8 +1,8 @@
 # SISYPHUS
 
-A Python tool that detects external library dependencies and identifies known vulnerabilities (CVEs) by querying the [OSV database](https://osv.dev). 
+A Python-based vulnerability scanner that extends software composition analysis to Jupyter Notebook (.ipynb) by parsing via Abstract Syntax Trees (AST) to identify dependencies and query the OSV database for real-time security risks.
 
-## 🌟 Key Features
+## Key Features
 
 - **Novel .ipynb Support**: Uses AST-based import detection for Jupyter Notebooks
 - **OSV Integration**: Queries the Open Source Vulnerabilities database for up-to-date CVE information
@@ -10,7 +10,7 @@ A Python tool that detects external library dependencies and identifies known vu
 - **Modern Dashboard**: Web-based visualization of vulnerability scan results
 - **CLI Interface**: Command-line tool for CI/CD integration
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -21,12 +21,6 @@ cd ipynb-vuln-scanner
 
 # Install the package
 pip install -e .
-
-# For dashboard support
-pip install -e ".[dashboard]"
-
-# For development
-pip install -e ".[dev]"
 ```
 
 ### Basic Usage
@@ -77,11 +71,11 @@ for pkg in result.packages.values():
             print(f"  - [{vuln.severity.value}] {vuln.id}: {vuln.summary}")
 ```
 
-## 🔍 How It Works
+## How It Works
 
 ### For Jupyter Notebooks (.ipynb)
 
-This is our **novel workflow**:
+This is my **novel workflow** for python notebooks:
 
 1. **Parse Notebook**: Extract code cells from the .ipynb JSON structure
 2. **AST Analysis**: Use Python's Abstract Syntax Tree to detect all import statements
@@ -117,59 +111,14 @@ python dashboard/app.py
 
 Then open http://localhost:5000 in your browser.
 
-Features:
+Features: (Not fully functional yet)
 - 📁 Drag-and-drop file upload
 - 📊 Summary statistics with severity counts
 - 🔴 Color-coded severity indicators
 - 🔗 Direct links to OSV database entries
 
-## 🧪 Running Tests
 
-```bash
-# Run all unit tests
-pytest tests/ -v
-
-# Run with coverage
-pytest tests/ -v --cov=src --cov-report=html
-
-# Run integration tests (requires network)
-pytest tests/ -v -m integration
-
-# Skip integration tests
-pytest tests/ -v -m "not integration"
-```
-
-## 📦 Project Structure
-
-```
-ipynb-dependency-vulnerabilities/
-├── src/
-│   ├── __init__.py           # Package initialization
-│   ├── main.py               # CLI entry point
-│   ├── ipynb_parser.py       # Notebook parsing
-│   ├── ast_extractor.py      # AST-based import extraction
-│   ├── package_mapper.py     # Import → Package name mapping
-│   ├── version_resolver.py   # Version resolution from environment
-│   ├── osv_client.py         # OSV API client
-│   ├── syft_wrapper.py       # Syft CLI wrapper
-│   └── scanner.py            # Main scanning orchestration
-├── dashboard/
-│   ├── app.py                # Flask application
-│   ├── templates/
-│   │   └── index.html        # Dashboard template
-│   └── static/
-│       ├── css/styles.css    # Styling
-│       └── js/main.js        # JavaScript
-├── tests/
-│   ├── test_ast_extractor.py
-│   ├── test_osv_client.py
-│   └── sample_notebooks/
-├── requirements.txt
-├── pyproject.toml
-└── README.md
-```
-
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -177,17 +126,6 @@ ipynb-dependency-vulnerabilities/
 |----------|-------------|---------|
 | `OSV_TIMEOUT` | API request timeout in seconds | 30 |
 
-### Custom Package Mappings
-
-Add custom import-to-package mappings:
-
-```python
-from src.package_mapper import PackageMapper
-
-mapper = PackageMapper(custom_mappings={
-    "myimport": "my-pypi-package",
-})
-```
 
 ## 🛠️ Requirements
 
@@ -196,16 +134,7 @@ mapper = PackageMapper(custom_mappings={
 - `flask` (optional, for dashboard)
 - `syft` (optional, for project scanning)
 
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit issues and pull requests.
-
-## 🔗 Links
+## Links
 
 - [OSV Database](https://osv.dev)
 - [Syft SBOM Tool](https://github.com/anchore/syft)
-- [CVE Database](https://cve.mitre.org)
