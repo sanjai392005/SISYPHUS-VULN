@@ -15,7 +15,7 @@ from .scanner import VulnerabilityScanner, scan
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        prog='ipynb-vuln-scanner',
+        prog='sisyphus-vuln',
         description='Scan Python notebooks and projects for dependency vulnerabilities',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
