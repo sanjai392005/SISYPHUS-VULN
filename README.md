@@ -16,7 +16,7 @@ A Python-based vulnerability scanner that extends software composition analysis 
 
 ```bash
 # Clone the repository
-git clone https://github.com/example/sisyphus-vuln.git
+git clone git@github.com:sanjai392005/SISYPHUS-VULN.git
 cd sisyphus-vuln
 
 # Install the package
