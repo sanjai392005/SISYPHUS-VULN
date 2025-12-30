@@ -16,8 +16,8 @@ A Python-based vulnerability scanner that extends software composition analysis 
 
 ```bash
 # Clone the repository
-git clone https://github.com/example/ipynb-vuln-scanner.git
-cd ipynb-vuln-scanner
+git clone https://github.com/example/sisyphus-vuln.git
+cd sisyphus-vuln
 
 # Install the package
 pip install -e .
@@ -29,26 +29,26 @@ pip install -e .
 
 ```bash
 # CLI output
-ipynb-vuln-scanner notebook.ipynb
+sisyphus-vuln notebook.ipynb
 
 # JSON output
-ipynb-vuln-scanner notebook.ipynb --json
+sisyphus-vuln notebook.ipynb --json
 
 # Save to file
-ipynb-vuln-scanner notebook.ipynb --output results.json
+sisyphus-vuln notebook.ipynb --output results.json
 
 # Launch dashboard
-ipynb-vuln-scanner notebook.ipynb --dashboard
+sisyphus-vuln notebook.ipynb --dashboard
 ```
 
 #### Scan a Project
 
 ```bash
 # Scan a project directory (uses Syft if available)
-ipynb-vuln-scanner ./my_project
+sisyphus-vuln ./my_project
 
 # Scan requirements.txt directly
-ipynb-vuln-scanner requirements.txt
+sisyphus-vuln requirements.txt
 ```
 
 #### Python API
@@ -103,7 +103,7 @@ Launch the web dashboard to view results interactively:
 
 ```bash
 # Via CLI
-ipynb-vuln-scanner notebook.ipynb --dashboard --port 5000
+sisyphus-vuln notebook.ipynb --dashboard --port 5000
 
 # Direct
 python dashboard/app.py
