@@ -97,7 +97,7 @@ project/ → Syft SBOM → Parse Packages → OSV Query → Results
 
 Falls back to parsing `requirements.txt` or `pyproject.toml` if Syft is not available.
 
-## 📊 Dashboard
+## Dashboard
 
 Launch the web dashboard to view results interactively:
 
@@ -112,10 +112,10 @@ python dashboard/app.py
 Then open http://localhost:5000 in your browser.
 
 Features: (Not fully functional yet)
-- 📁 Drag-and-drop file upload
-- 📊 Summary statistics with severity counts
-- 🔴 Color-coded severity indicators
-- 🔗 Direct links to OSV database entries
+- Drag-and-drop file upload
+- Summary statistics with severity counts
+- Color-coded severity indicators
+- Direct links to OSV database entries
 
 
 ## Configuration
@@ -127,7 +127,7 @@ Features: (Not fully functional yet)
 | `OSV_TIMEOUT` | API request timeout in seconds | 30 |
 
 
-## 🛠️ Requirements
+## Requirements
 
 - Python 3.8+
 - `requests` (for OSV API)
