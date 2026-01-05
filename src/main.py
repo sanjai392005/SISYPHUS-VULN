@@ -24,6 +24,7 @@ Examples:
   %(prog)s ./my_project                Scan a project directory
   %(prog)s requirements.txt            Scan a requirements file
   %(prog)s notebook.ipynb --json       Output results as JSON
+  %(prog)s notebook.ipynb --sbom       Generate CycloneDX SBOM
   %(prog)s notebook.ipynb --dashboard  Start web dashboard with results
         """
     )
@@ -63,6 +64,14 @@ Examples:
         help='Verbose output'
     )
     
+    parser.add_argument(
+        '--sbom', '-s',
+        nargs='?',
+        const='auto',
+        metavar='FILE',
+        help='Generate CycloneDX SBOM (optionally specify output file)'
+    )
+    
     args = parser.parse_args()
     
     # Validate path
@@ -84,7 +93,20 @@ Examples:
         sys.exit(1)
     
     # Output results
-    if args.json:
+    if args.sbom:
+        # Generate SBOM
+        if args.sbom == 'auto':
+            sbom_path = str(path.with_suffix('.sbom.json')) if path.suffix else f"{path}_sbom.json"
+        else:
+            sbom_path = args.sbom
+        
+        sbom = result.generate_sbom(sbom_path)
+        print(f"📋 SBOM generated: {sbom_path}")
+        print(f"   Format: CycloneDX 1.5")
+        print(f"   Components: {len(sbom.get('components', []))} ({result.direct_packages} direct, {result.transitive_packages} transitive)")
+        if sbom.get('vulnerabilities'):
+            print(f"   Vulnerabilities: {len(sbom['vulnerabilities'])}")
+    elif args.json:
         output = json.dumps(result.to_dict(), indent=2)
         if args.output:
             with open(args.output, 'w') as f:
@@ -119,6 +141,9 @@ def print_results(result, verbose=False):
     print(f"Scan time: {result.scan_time}")
     
     print(f"\n📦 Packages scanned: {result.total_packages}")
+    if result.direct_packages > 0 or result.transitive_packages > 0:
+        print(f"   ├── Direct: {result.direct_packages}")
+        print(f"   └── Transitive: {result.transitive_packages}")
     print(f"🔍 Vulnerable packages: {result.vulnerable_packages}")
     print(f"⚠️  Total vulnerabilities: {result.total_vulnerabilities}")
     

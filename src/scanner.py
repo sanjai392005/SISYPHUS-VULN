@@ -22,6 +22,13 @@ from .syft_wrapper import (
     scan_requirements_txt,
     scan_pyproject_toml
 )
+from .dependency_tree import (
+    build_dependency_tree,
+    get_all_packages_flat,
+    get_dependency_stats,
+    DependencyNode
+)
+from .sbom_generator import generate_cyclonedx_sbom, save_sbom, sbom_summary
 
 
 @dataclass
@@ -35,6 +42,10 @@ class ScanResult:
     packages: Dict[str, PackageVulnerabilities]
     unresolved_imports: Set[str] = field(default_factory=set)
     errors: List[str] = field(default_factory=list)
+    # New fields for transitive dependency tracking
+    direct_packages: int = 0
+    transitive_packages: int = 0
+    dependency_tree: Optional[Dict[str, DependencyNode]] = None
     
     @property
     def total_vulnerabilities(self) -> int:
@@ -56,6 +67,8 @@ class ScanResult:
             'scan_time': self.scan_time,
             'summary': {
                 'total_packages': self.total_packages,
+                'direct_packages': self.direct_packages,
+                'transitive_packages': self.transitive_packages,
                 'vulnerable_packages': self.vulnerable_packages,
                 'total_vulnerabilities': self.total_vulnerabilities,
                 'critical': self.critical_count,
@@ -82,6 +95,45 @@ class ScanResult:
             'unresolved_imports': list(self.unresolved_imports),
             'errors': self.errors,
         }
+    
+    def generate_sbom(self, output_path: Optional[str] = None) -> dict:
+        """
+        Generate a CycloneDX SBOM from the scan result.
+        
+        Args:
+            output_path: Optional path to save the SBOM file
+            
+        Returns:
+            CycloneDX SBOM as dict
+        """
+        if not self.dependency_tree:
+            # No tree available, create basic SBOM from packages
+            from .dependency_tree import DependencyNode
+            self.dependency_tree = {
+                pkg.package_name.lower(): DependencyNode(
+                    name=pkg.package_name,
+                    version=pkg.version,
+                    is_direct=True
+                )
+                for pkg in self.packages.values()
+            }
+        
+        # Collect vulnerabilities by package
+        vulns_by_pkg = {}
+        for name, pkg in self.packages.items():
+            if pkg.vulnerabilities:
+                vulns_by_pkg[name] = pkg.vulnerabilities
+        
+        sbom = generate_cyclonedx_sbom(
+            source=self.source,
+            dependency_tree=self.dependency_tree,
+            vulnerabilities=vulns_by_pkg
+        )
+        
+        if output_path:
+            save_sbom(sbom, output_path)
+        
+        return sbom
 
 
 class VulnerabilityScanner:
@@ -138,7 +190,8 @@ class VulnerabilityScanner:
         2. Use AST to detect imports
         3. Map imports to package names
         4. Resolve versions from local environment
-        5. Query OSV for vulnerabilities
+        5. Build transitive dependency tree
+        6. Query OSV for ALL dependencies (direct + transitive)
         
         Args:
             notebook_path: Path to .ipynb file
@@ -164,7 +217,7 @@ class VulnerabilityScanner:
         import_to_package = self.package_mapper.bulk_map(external_imports)
         package_names = set(import_to_package.values())
         
-        # Step 4: Resolve versions from local environment
+        # Step 4: Resolve versions from local environment (direct packages)
         package_versions = self.version_resolver.get_versions(package_names)
         
         # Track unresolved packages
@@ -173,13 +226,21 @@ class VulnerabilityScanner:
             if package_versions.get(pkg) is None
         }
         
-        # Step 5: Query OSV for vulnerabilities
-        packages_to_scan = {
+        # Direct packages to scan
+        direct_packages = {
             name: ver for name, ver in package_versions.items() 
             if ver is not None
         }
         
-        pkg_vulns = self._scan_packages(packages_to_scan)
+        # Step 5: Build transitive dependency tree (NEW)
+        dependency_tree = build_dependency_tree(direct_packages)
+        dep_stats = get_dependency_stats(dependency_tree)
+        
+        # Step 6: Get ALL packages (direct + transitive) for scanning
+        all_packages = get_all_packages_flat(direct_packages)
+        
+        # Query OSV for ALL packages
+        pkg_vulns = self._scan_packages(all_packages)
         
         # Count vulnerable packages
         vulnerable_count = sum(1 for p in pkg_vulns.values() if p.has_vulnerabilities)
@@ -188,11 +249,14 @@ class VulnerabilityScanner:
             source=notebook_path,
             source_type='notebook',
             scan_time=datetime.now().isoformat(),
-            total_packages=len(packages_to_scan),
+            total_packages=len(all_packages),
             vulnerable_packages=vulnerable_count,
             packages=pkg_vulns,
             unresolved_imports=unresolved,
             errors=errors,
+            direct_packages=dep_stats['direct'],
+            transitive_packages=dep_stats['transitive'],
+            dependency_tree=dependency_tree,
         )
     
     def scan_project(self, project_path: str) -> ScanResult:

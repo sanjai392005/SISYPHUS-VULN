@@ -5,6 +5,8 @@ A Python-based vulnerability scanner that extends software composition analysis 
 ## Key Features
 
 - **Novel .ipynb Support**: Uses AST-based import detection for Jupyter Notebooks
+- **Transitive Dependency Scanning**: Recursively resolves and scans the full dependency tree
+- **SBOM Generation**: Generates CycloneDX 1.5 compliant SBOMs directly from notebooks
 - **OSV Integration**: Queries the Open Source Vulnerabilities database for up-to-date CVE information
 - **Syft Integration**: Uses Syft for SBOM generation on regular Python projects
 - **Modern Dashboard**: Web-based visualization of vulnerability scan results
@@ -41,6 +43,16 @@ sisyphus-vuln notebook.ipynb --output results.json
 sisyphus-vuln notebook.ipynb --dashboard
 ```
 
+#### Generate SBOM
+
+```bash
+# Generate CycloneDX SBOM (auto-named)
+sisyphus-vuln notebook.ipynb --sbom
+
+# Generate SBOM with custom filename
+sisyphus-vuln notebook.ipynb --sbom my_sbom.json
+```
+
 #### Scan a Project
 
 ```bash
@@ -59,9 +71,14 @@ from src.scanner import scan
 # Scan a notebook
 result = scan("notebook.ipynb")
 
-# Check results
+# Check results (includes transitive dependencies)
+print(f"Direct packages: {result.direct_packages}")
+print(f"Transitive packages: {result.transitive_packages}")
 print(f"Vulnerable packages: {result.vulnerable_packages}")
 print(f"Critical issues: {result.critical_count}")
+
+# Generate SBOM
+sbom = result.generate_sbom("output_sbom.json")
 
 # Iterate through vulnerabilities
 for pkg in result.packages.values():
@@ -81,11 +98,31 @@ This is my **novel workflow** for python notebooks:
 2. **AST Analysis**: Use Python's Abstract Syntax Tree to detect all import statements
 3. **Package Mapping**: Map import names to PyPI package names (e.g., `cv2` → `opencv-python`)
 4. **Version Resolution**: Get installed versions from the local Python environment
-5. **OSV Query**: Query the OSV database for known vulnerabilities
+5. **Transitive Resolution**: Recursively resolve all dependencies of imported packages
+6. **OSV Query**: Query the OSV database for known vulnerabilities in ALL packages
 
 ```
-notebook.ipynb → Parse → AST Extract → Map Packages → Resolve Versions → OSV Query → Results
+notebook.ipynb → Parse → AST Extract → Map Packages → Resolve Versions → Build Dep Tree → OSV Query → Results
 ```
+
+### Transitive Dependency Scanning
+
+Unlike other tools that only scan direct imports, SISYPHUS builds the complete dependency tree.
+
+This catches vulnerabilities in packages you didn't directly import but are still in your environment.
+
+### SBOM Generation
+
+Generate standards-compliant CycloneDX 1.5 SBOMs directly from notebooks:
+
+```bash
+sisyphus-vuln notebook.ipynb --sbom output.json
+```
+
+Output includes:
+- All components (direct + transitive) with Package URLs (purl)
+- Dependency relationships
+- Embedded vulnerability data
 
 ### For Regular Projects
 
@@ -137,3 +174,4 @@ Features: (Not fully functional yet)
 
 - [OSV Database](https://osv.dev)
 - [Syft SBOM Tool](https://github.com/anchore/syft)
+- [CycloneDX SBOM Standard](https://cyclonedx.org/)
