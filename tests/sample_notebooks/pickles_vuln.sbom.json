@@ -1,0 +1,1130 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:d2bb9938-36b1-4a72-97f1-198be0f839f5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-01-05T12:47:37Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "author": "SISYPHUS",
+          "name": "sisyphus-vuln",
+          "version": "0.1.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "/home/kronoseus/workspace/career/projects/ipynb-dependency-vulnerabilities/tests/sample_notebooks/pickles_vuln.ipynb",
+      "name": "pickles_vuln.ipynb",
+      "description": "Dependencies extracted from pickles_vuln.ipynb"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/picklescan@0.0.1",
+      "name": "picklescan",
+      "version": "0.0.1",
+      "purl": "pkg:pypi/picklescan@0.0.1",
+      "properties": [
+        {
+          "name": "sisyphus:dependency:direct",
+          "value": "true"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:pypi/picklescan@0.0.1"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "GHSA-3329-ghmp-jmv5",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-3gf5-cxq9-w223",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-3vg9-h568-4w9m",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-4675-36f9-wf6r",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-46h3-79wf-xr6c",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-49gj-c84q-6qm9",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-4r9r-ch6f-vxmx",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-4whj-rm5r-c2v8",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-5qwp-399c-mjwf",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6556-fwc2-fg2p",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-655q-fx9r-782v",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6vqj-c2q5-j97w",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6w4w-5w54-rjvr",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-769v-p64c-89pr",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-7cq8-mj8x-j263",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-7q5r-7gvp-wc82",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-84r2-jw7c-4r5q",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-86cj-95qr-2p4f",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-8r4j-24qv-fmq9",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-93mv-x874-956g",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-955r-x9j8-7rhh",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-9gvj-pp9x-gcfr",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-9w88-8rmg-7g2p",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-9xph-j2h6-g47v",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-cffc-mxrf-mhh4",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-cj3c-v495-4xqh",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-f4x7-rfwp-v3xw",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-f54q-57x4-jg88",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-f745-w6jp-hpxx",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-f7qq-56ww-84cr",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-fj43-3qmq-673f",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-fqq6-7vqf-w3fg",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-g344-hcph-8vgg",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-h3qp-7fh3-f8h4",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-hgrh-qx5j-jfwx",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-j343-8v2j-ff7w",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-jgw4-cr84-mqxg",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-m273-6v24-x4m4",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-m869-42cg-3xwr",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-mjqp-26hc-grxg",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-p9w7-82w4-7q8m",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-q77w-mwjj-7mqx",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-r8g5-cgf2-4m4m",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-rrxm-2pvv-m66x",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-v7x6-rv5q-mhwc",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-vqmv-47xg-9wpr",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-vr7h-p6mm-wpmh",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-vv6j-3g6g-2pvj",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-w8jq-xcqf-f792",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-x696-vm39-cp64",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-x843-g5mx-g377",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-xp4f-hrf8-rxw7",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "PYSEC-2025-18",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "PYSEC-2025-19",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "PYSEC-2025-20",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "PYSEC-2025-21",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    },
+    {
+      "id": "PYSEC-2025-34",
+      "source": {
+        "name": "OSV",
+        "url": "https://osv.dev"
+      },
+      "ratings": [
+        {
+          "severity": "unknown",
+          "method": "other"
+        }
+      ],
+      "description": "No summary available",
+      "affects": [
+        {
+          "ref": "pkg:pypi/picklescan@0.0.1"
+        }
+      ]
+    }
+  ]
+}

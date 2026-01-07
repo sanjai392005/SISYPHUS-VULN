@@ -5,9 +5,11 @@ Web-based dashboard for viewing vulnerability scan results.
 """
 
 import os
+import json
 import shutil
 import zipfile
 import tempfile
+from pathlib import Path
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 
@@ -38,7 +40,19 @@ def create_app():
     def index():
         """Main dashboard page."""
         preloaded_result = app.config.get('SCAN_RESULT')
-        return render_template('index.html', result=preloaded_result)
+        result_id = None
+        
+        # If there's a preloaded result from CLI, store it with a generated ID
+        if preloaded_result:
+            # Check if we already have a preloaded result_id
+            if 'PRELOADED_RESULT_ID' not in app.config:
+                result_id = os.urandom(8).hex()
+                app.config['PRELOADED_RESULT_ID'] = result_id
+                app.config['SCAN_RESULTS'][result_id] = preloaded_result
+            else:
+                result_id = app.config['PRELOADED_RESULT_ID']
+        
+        return render_template('index.html', result=preloaded_result, result_id=result_id)
     
     @app.route('/upload', methods=['POST'])
     def upload_file():
@@ -91,7 +105,7 @@ def create_app():
         result = app.config['SCAN_RESULTS'].get(result_id)
         if not result:
             return redirect(url_for('index'))
-        return render_template('index.html', result=result)
+        return render_template('index.html', result=result, result_id=result_id)
     
     @app.route('/api/scan', methods=['POST'])
     def api_scan():
@@ -112,6 +126,44 @@ def create_app():
         if not result:
             return jsonify({'error': 'Result not found'}), 404
         return jsonify(result.to_dict())
+    
+    @app.route('/api/sbom/<result_id>')
+    def download_sbom(result_id):
+        """Download SBOM for a scan result."""
+        from flask import Response
+        from src.sbom_generator import generate_cyclonedx_sbom
+        from src.dependency_tree import build_dependency_tree
+        
+        result = app.config['SCAN_RESULTS'].get(result_id)
+        if not result:
+            return jsonify({'error': 'Result not found'}), 404
+        
+        # Build dependency tree from result
+        packages = {name: pkg.version for name, pkg in result.packages.items()}
+        tree = build_dependency_tree(packages)
+        
+        # Collect vulnerabilities
+        vulns = {}
+        for name, pkg in result.packages.items():
+            if pkg.has_vulnerabilities:
+                vulns[name] = pkg.vulnerabilities
+        
+        # Generate SBOM
+        sbom = generate_cyclonedx_sbom(
+            source=result.source,
+            dependency_tree=tree,
+            vulnerabilities=vulns
+        )
+        
+        # Return as downloadable JSON
+        sbom_json = json.dumps(sbom, indent=2)
+        filename = f"{Path(result.source).stem}.sbom.json"
+        
+        return Response(
+            sbom_json,
+            mimetype='application/json',
+            headers={'Content-Disposition': f'attachment; filename={filename}'}
+        )
     
     return app
 

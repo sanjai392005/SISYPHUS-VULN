@@ -230,6 +230,17 @@ body {
     background: var(--border-color);
 }
 
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+    transform: translateY(-2px);
+}
+
 /* Upload Progress */
 .upload-progress {
     display: flex;
@@ -584,7 +595,9 @@ body {
 
 /* Actions */
 .actions {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
     margin-top: 2rem;
 }
 

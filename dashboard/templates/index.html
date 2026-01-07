@@ -18,7 +18,7 @@
                     <span class="logo-icon">🛡️</span>
                     <h1>SISYPHUS</h1>
                 </div>
-                <p class="tagline">Scans for vulnerable python dependencies in Jupyter Notebooks and Projects</p>
+                <p class="tagline">Generate SBOM and Identify Vulnerable Dependencies</p>
             </div>
         </header>
 
@@ -81,6 +81,9 @@
                     <span class="source-badge {{ result.source_type }}">{{ result.source_type|upper }}</span>
                     <span class="source-path">{{ result.source }}</span>
                     <span class="scan-time">Scanned: {{ result.scan_time }}</span>
+                    {% if result_id %}
+                    <a href="/api/sbom/{{ result_id }}" class="btn btn-small" download>📥 Download SBOM</a>
+                    {% endif %}
                 </div>
 
                 <!-- Vulnerabilities List -->
@@ -160,6 +163,9 @@
                 <!-- Scan Again Button -->
                 <div class="actions">
                     <a href="/" class="btn btn-primary">Scan Another File</a>
+                    {% if result_id %}
+                    <a href="/api/sbom/{{ result_id }}" class="btn btn-secondary" download>📥 Download SBOM</a>
+                    {% endif %}
                 </div>
             </section>
             {% endif %}
