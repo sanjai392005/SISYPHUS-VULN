@@ -1,3 +1,6 @@
+ALL RIGHTS RESERVED.
+This repository may NOT be modified or redistributed without permission.
+
 # SISYPHUS-VULN
 
 A Python-based vulnerability scanner that extends software composition analysis to Jupyter Notebook (.ipynb) by parsing via Abstract Syntax Trees (AST) to identify dependencies and query the OSV database for real-time security risks.
