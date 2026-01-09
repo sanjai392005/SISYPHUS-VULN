@@ -1,5 +1,5 @@
 ALL RIGHTS RESERVED.
-This repository may NOT be modified or redistributed without permission.
+This repository may NOT be modified or redistributed without permission from the developer.
 
 # SISYPHUS-VULN
 
